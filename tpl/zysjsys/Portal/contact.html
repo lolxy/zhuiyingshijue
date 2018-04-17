@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>{$post_title} {$site_name} </title>
+	<meta name="keywords" content="{$post_keywords}" />
+	<meta name="description" content="{$post_excerpt}">
+    <tc_include file="Public:head" />
+    
+    <script src="http://api.map.baidu.com/api?v=1.3"></script>
+    
+	<style>
+	.container{width:1200px;}
+	img{
+	max-width: none;
+	}
+	.span6{
+		margin-right:30px;
+		}
+	.span3{width:260px;margin:0px;margin-right:20px;}
+	</style>
+</head>
+<body class="body-white">
+<tc_include file="Public:nav" />
+
+<div class="container">
+    <div class="row">
+                    <div class="span6">
+                        <h3 class="section-title">联系我们</h3>
+                        <form class="form-light J_ajaxForm mt-20" role="form" method="post" action="{:u('api/guestbook/addmsg')}">
+                            <div class="row">
+                            	<div class="span3">
+                                    <div class="form-group">
+                                        <label>姓名</label>
+                                		<input type="text" class="span3" placeholder="Your name" name="full_name">
+                                    </div>
+                                </div>
+                                <div class="span3">
+                                    <div class="form-group">
+                                        <label>邮箱</label>
+                                        <input type="email" class="span3" placeholder="Email address" name="email">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>内容</label>
+                                <textarea class="span6" id="message" placeholder="Write you message here..." style="height:100px;" name="msg"></textarea>
+                            </div>
+                             
+                            <div class="row">
+                            	<div class="span6">
+                                    <div class="form-group">
+		                                <label>验证码</label>
+		                                <input type="text" class="span3" placeholder="please enter the code"  name="verify" autocomplete="off">
+		                                {:sp_verifycode_img('code_len=4&font_size=20&width=238&height=34&font_color=&background=','style="cursor: pointer;vertical-align: top;" title="点击获取"')}
+		                            </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary J_ajax_submit_btn">发送留言</button>
+                        </form>
+                    </div>
+                    <div class="span6">
+                        <div class="row">
+                        	<div class="span3">
+                                <h3 class="section-title">联系方式</h3>
+                                <div class="contact-info">
+                                    <h5>地址</h5>
+                                    <p>{$address}</p>
+                                    
+                                    <h5>邮箱</h5>
+                                    <p>{$site_admin_email}</p>
+                                    
+                                    <h5>电话</h5>
+                                    <p>{$lianxidianhua}</p>
+                                </div>
+                            </div>
+                            <div class="span3">
+                                <h3>Contact</h3>
+                                <div class="contact-info">
+                                    <h5>Address</h5>
+                                    <p>{$addressen}</p>
+                                    
+                                    <h5>Email</h5>
+                                    <p>{$site_admin_email}</p>
+                                    
+                                    <h5>Phone</h5>
+                                    <p>{$lianxidianhua}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <h3 class="section-title">快捷交流</h3>
+                        <p>
+                       点击以下QQ图标，免加好友即时洽谈合作
+                        </p>
+                        <div class="social-media">
+                            <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={$qq1}&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:{$qq1}:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a>
+                            <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={$qq2}&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:{$qq2}:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a>
+                            <a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={$qq3}&site=qq&menu=yes"><img border="0" src="http://wpa.qq.com/pa?p=2:{$qq3}:51" alt="点击这里给我发消息" title="点击这里给我发消息"/></a>
+                        </div>
+                    </div>
+                </div>
+
+</div>
+   <tc_include file="Public:footer" />
+<tc_include file="Public:scripts" />
+
+</body>
+</html>

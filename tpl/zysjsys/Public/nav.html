@@ -1,0 +1,81 @@
+{:hook('body_start')}
+<div class="navbar">
+   <div class="navbar-inner">
+     <div class="container">
+		<div class="logo-box">
+			<img src="__TMPL__Public/images/index.png"/>
+		</div>
+       <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+         <span class="icon-bar"></span>
+       </a>
+       <div class="nav-collapse collapse" id="main-menu">
+       	<?php
+			$effected_id="";
+		  	$filetpl="<a href='\$href' target='\$target'>\$label</a>";
+		  	$foldertpl="<a href='\$href' target='\$target' class='dropdown-toggle' data-toggle='dropdown'>\$label <b class='caret'></b></a>";
+		  	$ul_class="dropdown-menu" ;
+		  	$li_class="" ;
+		  	$style="nav";
+		  	$showlevel=6;
+		  	$dropdown='dropdown';
+		  	echo sp_get_menu("main",$effected_id,$filetpl,$foldertpl,$ul_class,$li_class,$style,$showlevel,$dropdown);
+		?>
+       </div>
+	   <script src="__ROOT__/statics/js/jquery.js"></script>
+	   <script>
+			$(document).ready(function(){
+				var current_url=location.href;
+				$(".nav li").each(function(){
+					var url=$(this).find("a").attr('href');
+					var urls='http://czx.com'+url;
+					if(current_url == urls){
+						$(this).addClass('active').siblings().removeClass('active');
+					}
+				});
+			});
+	   </script>
+     </div>
+	 <?php
+	 if($_SERVER['REQUEST_URI'] != '/'){
+	 ?>
+	 	 <div class="ad-box">
+            <?php
+            if(strpos($_SERVER['REQUEST_URI'],'page') != false && strpos($_SERVER['REQUEST_URI'],'2') != false){
+$home_slides=sp_getslide("gk1");
+$home_slides=empty($home_slides)?$default_home_slides:$home_slides;
+?>
+	<foreach name="home_slides" item="vo">
+		<a href="{$vo.slide_url}"><img src="{:sp_get_asset_upload_path($vo['slide_pic'])}" alt=""></a>
+	</foreach>
+    <?php
+	 }else if(strpos($_SERVER['REQUEST_URI'],'page') != false && strpos($_SERVER['REQUEST_URI'],'3') != false){
+$home_slides=sp_getslide("gk4");
+$home_slides=empty($home_slides)?$default_home_slides:$home_slides;
+?>
+	<foreach name="home_slides" item="vo">
+		<a href="{$vo.slide_url}"><img src="{:sp_get_asset_upload_path($vo['slide_pic'])}" alt=""></a>
+	</foreach>
+          <?php
+	 }else if(strpos($_SERVER['REQUEST_URI'],'list') != false){
+$home_slides=sp_getslide("gk2");
+$home_slides=empty($home_slides)?$default_home_slides:$home_slides;
+?>
+	<foreach name="home_slides" item="vo">
+		<a href="{$vo.slide_url}"><img src="{:sp_get_asset_upload_path($vo['slide_pic'])}" alt=""></a>
+	</foreach>
+     <?php
+     }else{
+     $home_slides=sp_getslide("gk3");
+$home_slides=empty($home_slides)?$default_home_slides:$home_slides;
+?>
+	<foreach name="home_slides" item="vo">
+		<a href="{$vo.slide_url}"><img src="{:sp_get_asset_upload_path($vo['slide_pic'])}" alt=""></a>
+	</foreach>
+     <?php
+     }
+	 }
+	 ?>
+   </div>
+ </div>

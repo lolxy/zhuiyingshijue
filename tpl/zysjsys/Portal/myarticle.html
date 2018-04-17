@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+		<title>{$post_title} {$site_name} </title>
+		<meta name="keywords" content="{$post_keywords}" />
+		<meta name="description" content="{$post_excerpt}">
+		<tc_include file="Public:head" />
+		<style>
+			#article_content img{height:auto !important}
+			#article_content {word-wrap: break-word;}
+    		.btn {margin-top: 33px;}
+		</style>
+	</head>
+<body class="">
+<tc_include file="Public:nav" />
+<div class="tc-main" style="margin:10px auto">
+	<div class="row">
+    
+        <div class="span3">
+			<div class="kefu-box">
+				<h2>在线客服</h2>
+                <div class="kefu">
+					<span>客服一：</span>
+					<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={$qq1}&site=qq&menu=yes">
+						<img border="0" src="http://wpa.qq.com/pa?p=2:{$qq1}:51" alt="点击这里给我发消息" title="点击这里给我发消息"/>
+					</a>
+				</div>
+				<div class="kefu">
+					<span>客服二：</span>
+					<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={$qq2}&site=qq&menu=yes">
+						<img border="0" src="http://wpa.qq.com/pa?p=2:{$qq2}:51" alt="点击这里给我发消息" title="点击这里给我发消息"/>
+					</a>
+				</div>
+            </div>
+			
+			<div class="work-time">
+				<h2>工作时间</h2>
+				<p>{$worktime1}</p>
+				<p>{$worktime2}</p>
+			</div>
+			
+			<div class="contact-box">
+				<h2>联系方式</h2>
+				<p>{$dianhua}</p>
+				<p>{$telephone}</p>
+                 <p>{$telephone2}</p>
+			</div>
+		</div>
+		
+		<div class="span9">
+			
+			<div class="tc-box first-box article-box">
+		    	<h2><span>{$post_title}</span></h2>
+		    	<div id="article_content">
+		    	{$post_content}
+		    	</div>
+                <php>$smetab=$smeta['photo'];</php>
+                <if condition="!empty($smetab)">
+                <div class="list-box">
+                <ul>
+                <foreach name="smetab" item="vo">
+                	<li>
+				<div style="width:100%;height:106px;overflow:hidden;"><img src="{:sp_get_asset_upload_path($vo['url'])}"/></div>
+               		</li>
+                    </foreach>
+                </ul>	
+				</div>
+                </if>
+            <div style="clear:both;"></div>
+                <if condition="!empty($post_source)">
+                    <div>
+                        <b>注：本文转载自{$post_source}，转载目的在于传递更多信息，并不代表本网赞同其观点和对其真实性负责。如有侵权行为，请联系我们，我们会及时删除。</b>
+                    </div>
+    			</if>
+		    	<div>
+					<if condition="!empty($prev)">
+					<a href="{:U('article/index',array('id'=>$prev['tid']))}" class="btn btn-primary pull-left">上一篇</a>
+					</if>
+					<if condition="!empty($next)">
+					<a href="{:U('article/index',array('id'=>$next['tid']))}" class="btn btn-warning pull-right">下一篇</a>
+					</if>
+					<div class="clearfix"></div>
+				</div>
+
+		    </div>
+		    
+		</div>
+     </div>         
+
+</div>
+<tc_include file="Public:footer"/>
+<tc_include file="Public:scripts"/>
+</body>
+</html>

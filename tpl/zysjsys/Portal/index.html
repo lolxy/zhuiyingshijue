@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+		<title>{$site_seo_title} {$site_name}</title>
+		<meta name="keywords" content="{$site_seo_keywords}" />
+		<meta name="description" content="{$site_seo_description}">
+		<tc_include file="Public:head" />
+        <link href="__TMPL__Public/css/slick/slick.css" rel="stylesheet">
+		<link href="__TMPL__Public/css/slippry/slippry.css" rel="stylesheet">
+        <script src="__TMPL__Public/js/slick.min.js"></script>
+		<style>
+			.caption-wraper{position: absolute;left:50%;bottom:2em;}
+			.caption-wraper .caption{
+			position: relative;left:-50%;
+			background-color: rgba(0, 0, 0, 0.54);
+			padding: 0.4em 1em;
+			color:#fff;
+			-webkit-border-radius: 1.2em;
+			-moz-border-radius: 1.2em;
+			-ms-border-radius: 1.2em;
+			-o-border-radius: 1.2em;
+			border-radius: 1.2em;
+			}
+			@media (max-width: 767px){
+				.sy-box{margin: 12px -20px 0 -20px;}
+				.caption-wraper{left:0;bottom: 0.4em;}
+				.caption-wraper .caption{
+				left: 0;
+				padding: 0.2em 0.4em;
+				font-size: 0.92em;
+				-webkit-border-radius: 0;
+				-moz-border-radius: 0;
+				-ms-border-radius: 0;
+				-o-border-radius: 0;
+				border-radius: 0;}
+			}
+		</style>
+	</head>
+<body class="body-white">
+<tc_include file="Public:nav" />
+
+<php>
+$home_slides=sp_getslide("slideindex");
+
+$home_slides=empty($home_slides)?$default_home_slides:$home_slides;
+</php>
+<ul id="homeslider" class="unstyled">
+	<foreach name="home_slides" item="vo">
+	<li>
+		<!-- <div class="caption-wraper">
+			<div class="caption">{$vo.slide_name}</div>
+		</div> -->
+		<a href="{$vo.slide_url}"><img src="{:sp_get_asset_upload_path($vo['slide_pic'])}" alt=""></a>
+	</li>
+	</foreach>
+</ul>
+
+<!--wrapper-->
+<div class="wrapper">
+	<div class="zpzs">
+		<h2>
+			<span>作品展示</span>
+			<a href="{:leuu('list/index',array('id'=>4))}" target="_blank"><img src="__TMPL__Public/images/more2.jpg"></a>
+		</h2>
+		<ul>
+			<php>
+			$posts=sp_sql_posts('cid:4;field:tid,post_title,smeta;limit:8;order:listorder asc');
+			</php>
+
+			<foreach name="posts" item="vo">
+				<php>$smeta=json_decode($vo['smeta'],true);</php>
+				<li><a href="{:leuu('article/index',array('id'=>$vo['tid']))}" target="_blank" class="imgbox">
+                    <if condition="empty($smeta['thumb'])"> 
+                        <img src="__TMPL__Public/images/no-pic.jpg" class="img-responsive" alt="{$vo.post_title}"/>
+                    <else /> 
+                        <img src="{:sp_get_asset_upload_path($smeta['thumb'])}" class="img-responsive img-thumbnail" alt="{$vo.post_title}" />
+                    </if>
+                </a>
+                <a href="{:leuu('article/index',array('id'=>$vo['tid']))}" target="_blank" class="tit">{$vo.post_title}</a>
+                </li>
+			</foreach>
+		</ul>
+	</div>
+    
+    <div style="clear:both;"></div>
+	
+	<div class="kfjj">
+    
+		<div class="kefus">
+			<h2>
+				<span>在线客服</span>
+				<a href="{:leuu('page/index',array('id'=>4))}" target="_blank"><img src="__TMPL__Public/images/more.jpg"></a>
+			</h2>
+			<div class="kefu-box">
+                <div class="kefu">
+					<span>客服一：</span>
+					<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={$qq1}&site=qq&menu=yes">
+						<img border="0" src="http://wpa.qq.com/pa?p=2:{$qq1}:51" alt="点击这里给我发消息" title="点击这里给我发消息"/>
+					</a>
+				</div>
+				<div class="kefu">
+					<span>客服二：</span>
+					<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={$qq2}&site=qq&menu=yes">
+						<img border="0" src="http://wpa.qq.com/pa?p=2:{$qq2}:51" alt="点击这里给我发消息" title="点击这里给我发消息"/>
+					</a>
+				</div>
+            </div>
+			
+			<div class="contact-box">
+				<p>{$dianhua}</p>
+				<p>{$telephone}</p>
+                 <p>{$telephone2}</p>
+			</div>
+		</div>
+		
+		<div class="gsjj">
+			<h2>
+				<span>公司简介</span>
+				<a href="{:leuu('page/index',array('id'=>2))}" target="_blank"><img src="__TMPL__Public/images/more2.jpg"></a>
+			</h2>
+            <div class="content-box">
+            	<?php
+                $ID=2;
+                $page=sp_sql_page($ID);
+                $smeta=json_decode($page['smeta'],true);
+                ?>
+                <if condition="empty($smeta['thumb'])"> 
+                   <img src="__TMPL__Public/images/no-pic.jpg" class="img-responsive" alt="{$vo.post_title}"/>
+                <else /> 
+                   <img src="{:sp_get_asset_upload_path($smeta['thumb'])}" class="img-responsive img-thumbnail" alt="{$vo.post_title}" />
+                </if>
+                <php>echo mb_substr($page["post_content"],0,206,'utf-8');</php>
+                ...&nbsp;&nbsp;<a href="{:leuu('page/index',array('id'=>2))}" target="_blank" style="color:#333;text-decoration:none;">[查看更多]</a>
+            </div>
+		</div>
+	</div>
+    
+    <!--<div class="zpzs">
+		<h2>
+			<span>团队展示</span>
+			<a href="{:leuu('list/index',array('id'=>5))}" target="_blank"><img src="__TMPL__Public/images/more2.jpg"></a>
+		</h2>
+		<div>
+			<php>
+			$postss=sp_sql_posts('cid:5;field:tid,post_title,smeta;limit:15;order:listorder asc');
+			</php>
+			
+            <div class="slick-slider">
+			<foreach name="postss" item="vo">
+				<php>$smeta=json_decode($vo['smeta'],true);</php>
+				<div>
+                <a href="{:leuu('article/index',array('id'=>$vo['tid']))}" target="_blank">
+                <if condition="empty($smeta['thumb'])"> 
+                        <img src="__TMPL__Public/images/no-pic.jpg" class="img-responsive" alt="{$vo.post_title}"/>
+                    <else /> 
+                        <img src="{:sp_get_asset_upload_path($smeta['thumb'])}" class="img-responsive img-thumbnail" alt="{$vo.post_title}" />
+                    </if>
+				</a>
+                </div>
+			</foreach>
+            </div>
+		</div>
+	</div>-->
+    
+</div>
+<tc_include file="Public:footer"/>
+<tc_include file="Public:scripts"/>
+<script src="__TMPL__Public/js/slippry.min.js"></script>
+<script src="__TMPL__Public/js/slick.min.js"></script>
+<script>
+$(function() {
+	var demo1 = $("#homeslider").slippry({
+		transition: 'fade',
+		useCSS: true,
+		captions: false,
+		speed: 1000,
+		pause: 3000,
+		auto: true,
+		preload: 'visible'
+	});
+	
+	$('.slick-slider').slick({
+  	slidesToShow:5,
+  	slidesToScroll: 1,
+  	autoplay:true,
+  	autoplaySpeed:3000,
+	accessibility:false,
+	arrows:false,
+	speed:500,
+	infinite:true,
+	});
+				
+});
+</script>
+{:hook('footer_end')}
+</body>
+</html>

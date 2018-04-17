@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{$name} {$seo_title} {$site_name}</title>
+	<meta name="keywords" content="{$seo_keywords}" />
+	<meta name="description" content="{$seo_description}">
+    <tc_include file="Public:head" />
+</head>
+<body>
+<tc_include file="Public:nav" />
+<div class="tc-main" style="margin:10px auto;">
+    <div class="row">
+		<div class="span3">
+			<div class="kefu-box">
+				<h2>在线客服</h2>
+                <div class="kefu">
+					<span>客服一：</span>
+					<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={$qq1}&site=qq&menu=yes">
+						<img border="0" src="http://wpa.qq.com/pa?p=2:{$qq1}:51" alt="点击这里给我发消息" title="点击这里给我发消息"/>
+					</a>
+				</div>
+				<div class="kefu">
+					<span>客服二：</span>
+					<a target="_blank" href="http://wpa.qq.com/msgrd?v=3&uin={$qq2}&site=qq&menu=yes">
+						<img border="0" src="http://wpa.qq.com/pa?p=2:{$qq2}:51" alt="点击这里给我发消息" title="点击这里给我发消息"/>
+					</a>
+				</div>
+            </div>
+			
+			<div class="work-time">
+				<h2>工作时间</h2>
+				<p>{$worktime1}</p>
+				<p>{$worktime2}</p>
+			</div>
+			
+			<div class="contact-box">
+				<h2>联系方式</h2>
+				<p>{$dianhua}</p>
+				<p>{$telephone}</p>
+                <p>{$telephone2}</p>
+			</div>
+		</div>
+		
+		<div class="span9 lists">
+        	<h2><span>{$name}</span></h2>
+			<div class="list-box">
+				<php>
+					$lists = sp_sql_posts_paged("cid:$cat_id;order:listorder asc;",12);
+				</php>
+                <ul>
+				<volist name="lists['posts']" id="vo">
+                	<li>
+                    <php>$smeta=json_decode($vo['smeta'],true);</php>
+				<a href="{:leuu('article/index',array('id'=>$vo['tid']))}" target="_blank" class="imgbox"><div style="width:100%;height:106px;overflow:hidden;">
+                <if condition="empty($smeta['thumb'])"> 
+                        <img src="__TMPL__Public/images/no-pic.jpg" class="img-responsive" alt="{$vo.post_title}"/>
+                    <else /> 
+                        <img src="{:sp_get_asset_upload_path($smeta['thumb'])}" class="img-responsive img-thumbnail" alt="{$vo.post_title}" />
+                    </if>
+                    </div></a>
+				<a href="{:leuu('article/index',array('id'=>$vo['tid']))}" target="_blank" class="tit">{$vo.post_title}</a>
+               		</li>
+				</volist>
+                </ul>
+				
+			</div>
+            
+            <div style="clear:both;"></div>
+			<div class="pagination">
+				<ul>
+					{$lists['page']}
+				</ul>
+			</div>
+		</div>
+		
+    </div>
+    
+</div>
+
+    <tc_include file="Public:footer" />
+<!-- JavaScript -->
+<tc_include file="Public:scripts" />
+</body>
+</html>
